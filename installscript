@@ -57,7 +57,8 @@ else
 			 39 "KXStudio Jack Setup (Advanced Audio)" off
 			 40 "Catfish - File Search" off
 			 41 "Xfce Monitor Move Script" off
-			 42 "Post Install Auto Clean Up & Update" off)
+			 42 "Kdenlive AppImage Version" off
+			 43 "Post Install Auto Clean Up & Update" off)
 		choices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
 		clear
 		for choice in $choices
@@ -378,7 +379,17 @@ else
 		    chown -R $currentuser:$currentuser ~/Documents/move-to-next-monitor
 			;;
 
-			42) #Clean up
+			42) #Kdenlive AppImage Version
+			echo "Kdenlive AppImage Version"
+			wget http://files.kde.org/kdenlive/release/kdenlive-18.04.1-x86_64.AppImage
+			cd ~/Documents
+			currentuser=$(who | awk 'NR==1{print $1}')
+			chmod +x ~/Documents/kdenlive-18.04.1-x86_64.AppImage
+		    chown -R $currentuser:$currentuser ~/Documents/kdenlive-18.04.1-x86_64.AppImage
+		    
+			;;
+
+			43) #Clean up
 			echo "Running Clean Up And Update"
 			sudo apt update
 			sudo apt upgrade
